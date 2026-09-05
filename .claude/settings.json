@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -l app/Notifications/VerifyEmailCodeQueued.php)",
+      "Bash(php -r '$p=new PDO\\(\"pgsql:host=127.0.0.1;dbname=granito\",\"postgres\",\"12061605\"\\); $n=$p->exec\\(\"delete from users where email like '\\\\''heitornetflixbr+diag%'\\\\'' or email like '\\\\''%@obsidian.local'\\\\'' or email like '\\\\''%@ex.local'\\\\''\"\\); echo \"removidos: $n\\\\n\"; echo \"--- usuarios restantes ---\\\\n\"; foreach\\($p->query\\(\"select id,email from users order by id\"\\) as $r\\) echo \"  #\".$r[\"id\"].\" \".$r[\"email\"].\"\\\\n\";')",
+      "Bash(php -r '$p=new PDO\\(\"pgsql:host=127.0.0.1;dbname=granito\",\"postgres\",\"12061605\"\\); echo \"jobs=\".$p->query\\(\"select count\\(*\\) from jobs\"\\)->fetchColumn\\(\\).\" failed=\".$p->query\\(\"select count\\(*\\) from failed_jobs\"\\)->fetchColumn\\(\\).\"\\\\n\";')"
+    ]
+  }
+}
