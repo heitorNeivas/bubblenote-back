@@ -49,3 +49,5 @@ php artisan test               # suíte de feature (SQLite :memory:)
 php artisan route:list         # conferir rotas e middlewares
 php artisan serve              # http://localhost:8000
 ```
+
+-> LEMBRANDO, toda implementação, lembre-se que o código está open source, não deixe informações sensíveis minhas expostas  

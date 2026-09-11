@@ -32,9 +32,9 @@ class NoteController extends Controller
         $this->authorize('viewAny', Note::class);
 
         $notes = $request->user()->notes()
-            ->with('tags')
+            ->with(['tags', 'linkedNotes'])
             ->latest('updated_at')
-            ->paginate(15);
+            ->paginate($request->integer('per_page', 15));
 
         return NoteResource::collection($notes);
     }
