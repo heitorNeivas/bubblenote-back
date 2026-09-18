@@ -4,11 +4,6 @@ namespace App\Policies;
 
 use App\Models\Note;
 use App\Models\User;
-
-/**
- * Regra unica de negocio: um usuario so enxerga e manipula
- * as proprias notas. Todos os metodos derivam disso.
- */
 class NotePolicy
 {
     /**

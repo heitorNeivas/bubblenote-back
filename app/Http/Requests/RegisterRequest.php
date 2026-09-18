@@ -34,8 +34,6 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            // `confirmed` exige o campo `password_confirmation`.
-            // Password::defaults() e configurado em AppServiceProvider.
             'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ];
     }

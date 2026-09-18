@@ -39,7 +39,6 @@ class AuthController extends Controller
 
         $code = PendingRegistration::issue($data['name'], $data['email'], $data['password']);
 
-        // Notificacao "on-demand" — ainda nao ha usuario/Notifiable.
         Notification::route('mail', $data['email'])
             ->notify(new VerifyEmailCodeQueued($code));
 
@@ -86,7 +85,7 @@ class AuthController extends Controller
                 $user = User::create([
                     'name' => $pending->name,
                     'email' => $pending->email,
-                    'password' => $pending->password, // ja hasheada; o cast nao re-hasheia
+                    'password' => $pending->password,
                 ]);
                 $user->forceFill(['email_verified_at' => now()])->save();
                 $pending->delete();
@@ -124,7 +123,6 @@ class AuthController extends Controller
                 ->notify(new VerifyEmailCodeQueued($pending->regenerateCode()));
         }
 
-        // Resposta generica — nao revela se ha cadastro pendente para o e-mail.
         return response()->json([
             'message' => 'Se houver um cadastro pendente para esse e-mail, enviamos um novo código.',
         ], 202);

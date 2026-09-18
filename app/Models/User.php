@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-/**
- * Todo usuario em `users` ja teve o e-mail confirmado — o cadastro sem
- * verificacao fica em `pending_registrations`, nao aqui.
- */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */

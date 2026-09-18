@@ -9,15 +9,10 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-/**
- * E-mail com o código de 6 dígitos para verificação da conta.
- * Enfileirada: o envio SMTP nunca bloqueia a request de cadastro/reenvio.
- */
 class VerifyEmailCodeQueued extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /** Tenta reenviar em caso de falha transitoria de SMTP. */
     public int $tries = 3;
 
     public int $backoff = 10;
@@ -45,10 +40,6 @@ class VerifyEmailCodeQueued extends Notification implements ShouldQueue
             ->line('Se você não criou uma conta, ignore este e-mail.');
     }
 
-    /**
-     * Chamado quando todas as tentativas falham — registra no log em vez de
-     * o e-mail sumir silenciosamente na fila.
-     */
     public function failed(Throwable $e): void
     {
         Log::error('Falha ao enviar o código de verificação de e-mail', [

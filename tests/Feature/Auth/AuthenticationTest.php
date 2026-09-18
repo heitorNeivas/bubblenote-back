@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
@@ -15,7 +14,6 @@ class AuthenticationTest extends TestCase
     {
         parent::setUp();
 
-        // Ver nota em RegistrationTest::setUp().
         $this->withHeader('Origin', 'http://localhost:3000');
     }
 

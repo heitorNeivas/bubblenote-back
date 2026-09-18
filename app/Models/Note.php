@@ -31,7 +31,6 @@ class Note extends Model
     protected function casts(): array
     {
         return [
-            // Frontmatter: entra/sai como array associativo, persiste como JSON.
             'properties' => 'array',
         ];
     }

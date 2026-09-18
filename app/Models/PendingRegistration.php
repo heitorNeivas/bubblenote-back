@@ -5,10 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
-/**
- * Cadastro aguardando confirmação de e-mail. Guarda o hash do código de
- * 6 dígitos; nunca o código em claro. Expira em 15 min.
- */
 class PendingRegistration extends Model
 {
     public const TTL_MINUTES = 15;
@@ -22,13 +18,9 @@ class PendingRegistration extends Model
         return ['expires_at' => 'datetime'];
     }
 
-    /**
-     * Cria (ou substitui) o cadastro pendente do e-mail e devolve o código
-     * EM CLARO, para envio por e-mail. `$plainPassword` é hasheada aqui.
-     */
     public static function issue(string $name, string $email, string $plainPassword): string
     {
-        static::where('expires_at', '<', now())->delete(); // poda abandonados
+        static::where('expires_at', '<', now())->delete();
 
         $code = self::randomCode();
 
@@ -45,10 +37,6 @@ class PendingRegistration extends Model
         return $code;
     }
 
-    /**
-     * Gera um novo código para este cadastro pendente (sem tocar na senha),
-     * renova a expiração e devolve o código em claro.
-     */
     public function regenerateCode(): string
     {
         $code = self::randomCode();
