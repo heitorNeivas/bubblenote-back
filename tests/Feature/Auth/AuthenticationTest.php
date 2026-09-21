@@ -77,8 +77,6 @@ class AuthenticationTest extends TestCase
 
     public function test_falha_de_auth_sem_header_accept_responde_401_json(): void
     {
-        // Request "crua" (sem Accept: application/json), como um fetch
-        // server-to-server do BFF. Antes retornava 500 "Route [login] not defined".
         $response = $this->get('/api/user');
 
         $response->assertStatus(401)
@@ -99,7 +97,6 @@ class AuthenticationTest extends TestCase
             'password' => Hash::make('senha-forte-1'),
         ]);
 
-        // Login com outra grafia (maiúsculas + espaços) ainda encontra o usuário.
         $this->postJson('/api/login', [
             'email' => '  Ana@EXAMPLE.com  ',
             'password' => 'senha-forte-1',

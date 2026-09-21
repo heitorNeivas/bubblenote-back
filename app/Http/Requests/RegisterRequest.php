@@ -15,10 +15,6 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Normaliza o e-mail antes de validar/gravar: o PostgreSQL compara com
-     * case-sensitivity, entao cadastro e login precisam usar a mesma forma.
-     */
     protected function prepareForValidation(): void
     {
         if ($this->has('email')) {

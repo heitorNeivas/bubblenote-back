@@ -6,11 +6,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-/**
- * O `register` NÃO cria o usuário — grava um cadastro pendente e envia o
- * código. O `users` só nasce em `/api/register/verify` (ver
- * RegistrationVerificationTest).
- */
 class RegistrationTest extends TestCase
 {
     use RefreshDatabase;

@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-/**
- * Baseado no LoginRequest do Laravel Breeze: alem de validar o formato,
- * concentra a tentativa de autenticacao e o rate limiting por e-mail + IP.
- */
 class LoginRequest extends FormRequest
 {
     public function authorize(): bool
@@ -20,10 +16,6 @@ class LoginRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Mesma normalizacao do RegisterRequest — sem isso o login com o e-mail
-     * em grafia diferente da do cadastro nao acha o usuario (Postgres = case-sensitive).
-     */
     protected function prepareForValidation(): void
     {
         if ($this->has('email')) {

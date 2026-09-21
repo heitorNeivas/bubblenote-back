@@ -6,10 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreNoteRequest extends FormRequest
 {
-    /**
-     * A autorizacao de acesso ao recurso e feita via middleware
-     * `auth:sanctum` na rota e via Policy no controller.
-     */
     public function authorize(): bool
     {
         return true;

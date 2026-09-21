@@ -6,9 +6,6 @@ use App\Models\Note;
 use App\Models\User;
 class NotePolicy
 {
-    /**
-     * Listagem (o filtro real por dono e feito na query do controller).
-     */
     public function viewAny(User $user): bool
     {
         return true;

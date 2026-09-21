@@ -8,11 +8,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-/**
- * Verificação do cadastro: o usuário só é gravado em `users` quando o código
- * de 6 dígitos é confirmado em POST /api/register/verify. Testes de integração
- * reais — banco de verdade, sem fakes (phpunit.xml já usa MAIL_MAILER=array).
- */
 class RegistrationVerificationTest extends TestCase
 {
     use RefreshDatabase;
@@ -29,11 +24,9 @@ class RegistrationVerificationTest extends TestCase
 
         $this->assertDatabaseMissing('users', ['email' => 'ana@example.com']);
 
-        // 2. Só o hash do código é guardado — fixamos um conhecido para o teste.
         PendingRegistration::where('email', 'ana@example.com')
             ->update(['code_hash' => Hash::make('654321')]);
 
-        // 3. Verifica: agora sim o usuário nasce, já verificado.
         $response = $this->postJson('/api/register/verify', [
             'email' => 'ana@example.com',
             'code' => '654321',
@@ -48,12 +41,10 @@ class RegistrationVerificationTest extends TestCase
         $this->assertNotNull($user->email_verified_at);
         $this->assertDatabaseMissing('pending_registrations', ['email' => 'ana@example.com']);
 
-        // 4. O token devolvido dá acesso aos recursos.
         $token = $response->json('token');
         $this->assertNotEmpty($token);
         $this->withToken($token)->getJson('/api/notes')->assertOk();
 
-        // 5. A senha do pending foi preservada (login funciona).
         $this->postJson('/api/login', [
             'email' => 'ana@example.com',
             'password' => 'senha-forte-123',
@@ -104,7 +95,7 @@ class RegistrationVerificationTest extends TestCase
 
         $this->postJson('/api/register/verify', [
             'email' => 'ana@example.com',
-            'code' => 42315, // número, sem o zero à esquerda
+            'code' => 42315, 
         ])->assertStatus(201)->assertJsonPath('user.email_verified', true);
     }
 
